@@ -1,0 +1,11 @@
+/bin/Debug
+/obj/Debug
+/.vs
+/obj/Release
+*.dll
+*.exe
+obj/
+bin/
+API/.vscode/
+APITests/.vscode/
+
