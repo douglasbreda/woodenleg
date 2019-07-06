@@ -19,19 +19,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{E080BFF1-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainTest", "DomainTest", "{2C9790CF-B13C-47D7-A57D-D3F0593E0BB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenLeg.API", "WoodenLeg.API\WoodenLeg.API.csproj", "{A953A783-E505-4F84-A307-D91DF7A4846F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodenLeg.API", "WoodenLeg.API\WoodenLeg.API.csproj", "{A953A783-E505-4F84-A307-D91DF7A4846F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{70F23C2F-79CA-46DF-98C9-3B06E3B6A392}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CrossCutting", "CrossCutting", "{EC175375-04A5-4C3D-AEB1-09352E34DEFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenLeg.Infra.Data", "WoodenLeg.Infra.Data\WoodenLeg.Infra.Data.csproj", "{CDCA07E6-3E2E-47FF-927E-DD8A97FE06C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodenLeg.Infra.Data", "WoodenLeg.Infra.Data\WoodenLeg.Infra.Data.csproj", "{CDCA07E6-3E2E-47FF-927E-DD8A97FE06C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenLeg.CrossCutting", "WoodenLeg.CrossCutting\WoodenLeg.CrossCutting.csproj", "{B64D88C3-234B-40C4-9D4B-D33E60D98D7A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodenLeg.CrossCutting", "WoodenLeg.CrossCutting\WoodenLeg.CrossCutting.csproj", "{B64D88C3-234B-40C4-9D4B-D33E60D98D7A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InfrastructureTest", "InfrastructureTest", "{6642F66E-1FAD-4469-9644-5B1F3E1E7DB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenLeg.CrossCuttingTest", "WoodenLeg.CrossCuttingTest\WoodenLeg.CrossCuttingTest.csproj", "{B3B53962-B0D0-4560-8841-A7EDABCEB2A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodenLeg.CrossCuttingTest", "WoodenLeg.CrossCuttingTest\WoodenLeg.CrossCuttingTest.csproj", "{B3B53962-B0D0-4560-8841-A7EDABCEB2A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenLeg.Infra.Data.Test", "WoodenLeg.Infra.Data.Test\WoodenLeg.Infra.Data.Test.csproj", "{7E4509C4-BB05-4CE7-B298-F150B33FB4A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{B3B53962-B0D0-4560-8841-A7EDABCEB2A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3B53962-B0D0-4560-8841-A7EDABCEB2A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3B53962-B0D0-4560-8841-A7EDABCEB2A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E4509C4-BB05-4CE7-B298-F150B33FB4A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E4509C4-BB05-4CE7-B298-F150B33FB4A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E4509C4-BB05-4CE7-B298-F150B33FB4A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E4509C4-BB05-4CE7-B298-F150B33FB4A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +79,7 @@ Global
 		{B64D88C3-234B-40C4-9D4B-D33E60D98D7A} = {EC175375-04A5-4C3D-AEB1-09352E34DEFC}
 		{6642F66E-1FAD-4469-9644-5B1F3E1E7DB8} = {E080BFF1-C447-4383-AEC3-B8D46E0038D3}
 		{B3B53962-B0D0-4560-8841-A7EDABCEB2A4} = {6642F66E-1FAD-4469-9644-5B1F3E1E7DB8}
+		{7E4509C4-BB05-4CE7-B298-F150B33FB4A9} = {6642F66E-1FAD-4469-9644-5B1F3E1E7DB8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C746C1C1-8867-4336-B75B-5140B8F1E00B}

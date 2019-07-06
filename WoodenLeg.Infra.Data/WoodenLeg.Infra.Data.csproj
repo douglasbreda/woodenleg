@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WoodenLeg.CrossCutting\WoodenLeg.CrossCutting.csproj" />
     <ProjectReference Include="..\WoodenLeg.Domain\WoodenLeg.Domain.csproj" />
   </ItemGroup>
 

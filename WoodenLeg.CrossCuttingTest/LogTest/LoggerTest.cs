@@ -22,5 +22,37 @@ namespace WoodenLeg.CrossCuttingTest.LogTest
                 Assert.True( false, "The file is empty" );
             
         }
+
+        [Fact]
+        public void LoggerTestInfo()
+        {
+            Logger.LogInfo( "It should be this message" );
+
+            string lastLine = File.ReadAllLines( Logger.GetLogPath() ).ToList().LastOrDefault();
+
+            if ( !string.IsNullOrEmpty( lastLine ) )
+            {
+                Assert.Equal( "[INFO]\t\tIt should be this message", lastLine );
+            }
+            else
+                Assert.True( false, "The file is empty" );
+
+        }
+
+        [Fact]
+        public void LoggerTestErro()
+        {
+            Logger.LogError( "It should be this message" );
+
+            string lastLine = File.ReadAllLines( Logger.GetLogPath() ).ToList().LastOrDefault();
+
+            if ( !string.IsNullOrEmpty( lastLine ) )
+            {
+                Assert.Equal( "[ERROR]\t\tIt should be this message", lastLine );
+            }
+            else
+                Assert.True( false, "The file is empty" );
+
+        }
     }
 }
