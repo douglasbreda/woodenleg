@@ -1,6 +1,8 @@
-﻿using MongoDB.Driver;
+﻿using System.Collections.Generic;
+using MongoDB.Driver;
 using WoodenLeg.Domain.Entities;
 using WoodenLeg.Infra.Data.Data;
+using WoodenLeg.Infra.Data.Test.DataTest;
 using Xunit;
 
 namespace WoodenLeg.Infra.Data.Test.Data
@@ -10,7 +12,8 @@ namespace WoodenLeg.Infra.Data.Test.Data
         #region [Properties]
 
         private readonly string _dataBaseName = "WoodenLeg";
-        
+        private string _collectionName = "Player";
+
         #endregion
 
         #region [Tests]
@@ -18,13 +21,20 @@ namespace WoodenLeg.Infra.Data.Test.Data
         [Fact]
         public void GetCollectionWithDbParameterTest()
         {
-            Assert.True( false );
+            var _mongoMock = new MongoAccess();
+            IMongoDatabase mongoDatabase = _mongoMock.GetDataBase( _dataBaseName );
+            IMongoCollection<Player> players = _mongoMock.GetCollection<Player>( mongoDatabase, _collectionName );
+
+            Assert.Equal( _collectionName, players.CollectionNamespace.CollectionName );
         }
 
         [Fact]
         public void GetCollectionWithLocalDbTest()
         {
-            Assert.True( false );
+            var _mongoMock = new MongoAccess();
+            IMongoCollection<Player> players = _mongoMock.GetCollection<Player>( _collectionName );
+
+            Assert.Equal( _collectionName, players.CollectionNamespace.CollectionName );
         }
 
         [Fact]
@@ -43,9 +53,23 @@ namespace WoodenLeg.Infra.Data.Test.Data
         public void InsertTest( )
         {
             var _mongoMock = new MongoAccess();
-            //_mongoMock.Insert(_mongoMock.GetCollection<>)
-            _mongoMock.Insert( _mongoMock.GetCollection<Player>( _collectionName ), mates );
-            Assert.True( false );
+            List<Player> players = new List<Player>( new CollectionGenerator().GeneratePlayerCollection( 10 ) );
+            _mongoMock.Insert( _mongoMock.GetCollection<Player>( _collectionName ), players );
+
+            IMongoCollection<Player> playersInserted = _mongoMock.GetCollection<Player>( _collectionName );
+
+            Assert.Equal( 10, playersInserted.CountDocuments( new FilterDefinitionBuilder<Player>().Empty ) );
+
+            Player _player;
+            for ( int i = 0; i < playersInserted.CountDocuments( new FilterDefinitionBuilder<Player>().Empty ); i++ )
+            {
+                _player = playersInserted.Find( x => x.Name.Equals( $"Player{i}" ) ).Single();
+                if ( _player != null )
+                    Assert.Equal( $"Player{i}", _player.Name );
+                else
+                    Assert.True( false, "One of the players wasn't inserted" );
+            }
+            
         }
 
         [Fact]

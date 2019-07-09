@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using WoodenLeg.Domain.Entities;
 
 namespace WoodenLeg.Infra.Data.Test.DataTest
@@ -25,7 +23,6 @@ namespace WoodenLeg.Infra.Data.Test.DataTest
         /// <returns></returns>
         public IEnumerable<Player> GeneratePlayerCollection(int numberOfInstances)
         {
-            Player _player;
             CollectionName = "Player";
             List<Player> _playerList = new List<Player>();
 
