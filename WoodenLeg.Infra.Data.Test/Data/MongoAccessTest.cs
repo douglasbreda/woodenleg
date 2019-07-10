@@ -68,8 +68,7 @@ namespace WoodenLeg.Infra.Data.Test.Data
                     Assert.Equal( $"Player{i}", _player.Name );
                 else
                     Assert.True( false, "One of the players wasn't inserted" );
-            }
-            
+            }   
         }
 
         [Fact]
