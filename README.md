@@ -5,3 +5,4 @@ Project portfolio using:
 - TDD (Test Driven Development);
 - .NET Core 2.2;
 - MongoDB
+- Swagger
