@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WoodenLeg.API.Options;
+using WoodenLeg.Infra.Data.Data;
 
 namespace WoodenLeg.API
 {
@@ -20,6 +21,7 @@ namespace WoodenLeg.API
         public void ConfigureServices( IServiceCollection services )
         {
             services.AddMvc().SetCompatibilityVersion( CompatibilityVersion.Version_2_2 );
+            services.AddSingleton<IMongoAccess, MongoAccess>();
             services.AddSwaggerGen( x =>
              {
                  x.SwaggerDoc( "v1.0", new Swashbuckle.AspNetCore.Swagger.Info { Title = "WoodenLeg API", Version = "v1.0", } );

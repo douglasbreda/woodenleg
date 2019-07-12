@@ -33,7 +33,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InfrastructureTest", "Infra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodenLeg.CrossCuttingTest", "WoodenLeg.CrossCuttingTest\WoodenLeg.CrossCuttingTest.csproj", "{B3B53962-B0D0-4560-8841-A7EDABCEB2A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenLeg.Infra.Data.Test", "WoodenLeg.Infra.Data.Test\WoodenLeg.Infra.Data.Test.csproj", "{7E4509C4-BB05-4CE7-B298-F150B33FB4A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoodenLeg.Infra.Data.Test", "WoodenLeg.Infra.Data.Test\WoodenLeg.Infra.Data.Test.csproj", "{7E4509C4-BB05-4CE7-B298-F150B33FB4A9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTest", "IntegrationTest", "{91C74893-B027-409C-B3F1-E2F2673917AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WoodenLeg.APITests", "WoodenLeg.APITests\WoodenLeg.APITests.csproj", "{67C4CFDC-AF44-4AB9-BDDB-827A07E9A872}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +69,10 @@ Global
 		{7E4509C4-BB05-4CE7-B298-F150B33FB4A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E4509C4-BB05-4CE7-B298-F150B33FB4A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E4509C4-BB05-4CE7-B298-F150B33FB4A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67C4CFDC-AF44-4AB9-BDDB-827A07E9A872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67C4CFDC-AF44-4AB9-BDDB-827A07E9A872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67C4CFDC-AF44-4AB9-BDDB-827A07E9A872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67C4CFDC-AF44-4AB9-BDDB-827A07E9A872}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +88,8 @@ Global
 		{6642F66E-1FAD-4469-9644-5B1F3E1E7DB8} = {E080BFF1-C447-4383-AEC3-B8D46E0038D3}
 		{B3B53962-B0D0-4560-8841-A7EDABCEB2A4} = {6642F66E-1FAD-4469-9644-5B1F3E1E7DB8}
 		{7E4509C4-BB05-4CE7-B298-F150B33FB4A9} = {6642F66E-1FAD-4469-9644-5B1F3E1E7DB8}
+		{91C74893-B027-409C-B3F1-E2F2673917AA} = {E080BFF1-C447-4383-AEC3-B8D46E0038D3}
+		{67C4CFDC-AF44-4AB9-BDDB-827A07E9A872} = {91C74893-B027-409C-B3F1-E2F2673917AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C746C1C1-8867-4336-B75B-5140B8F1E00B}
