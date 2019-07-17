@@ -91,9 +91,21 @@ namespace WoodenLeg.Infra.Data.Data
         /// <param name="collection"></param>
         /// <param name="data"></param>
         /// <returns></returns>
-        public Task Insert<T>( IMongoCollection<T> collection, IEnumerable<T> data )
+        public Task InsertMany<T>( IMongoCollection<T> collection, IEnumerable<T> data )
         {
             return collection.InsertManyAsync( data );
+        }
+
+        /// <summary>
+        /// Insert one single item to a collection
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        public Task InsertOne<T>( IMongoCollection<T> collection, T document )
+        {
+            return collection.InsertOneAsync( document );
         }
 
         /// <summary>
@@ -118,6 +130,19 @@ namespace WoodenLeg.Infra.Data.Data
                 Logger.LogError( ex.ToString() );
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Update a specific document
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <param name="document"></param>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public Task<ReplaceOneResult> Update<T>( IMongoCollection<T> collection, T document, FilterDefinition<T> filter )
+        {
+            return collection.ReplaceOneAsync( filter, document );
         }
 
         #endregion

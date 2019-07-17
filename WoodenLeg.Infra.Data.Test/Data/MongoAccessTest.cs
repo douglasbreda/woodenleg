@@ -54,7 +54,7 @@ namespace WoodenLeg.Infra.Data.Test.Data
         {
             var _mongoMock = new MongoAccess();
             List<Player> players = new List<Player>( new CollectionGenerator().GeneratePlayerCollection( 10 ) );
-            _mongoMock.Insert( _mongoMock.GetCollection<Player>( _collectionName ), players );
+            _mongoMock.InsertMany( _mongoMock.GetCollection<Player>( _collectionName ), players );
 
             IMongoCollection<Player> playersInserted = _mongoMock.GetCollection<Player>( _collectionName );
 

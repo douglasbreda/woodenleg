@@ -29,7 +29,25 @@ namespace WoodenLeg.Infra.Data.Data
         ///<summary>
         /// Insert new items in a collection
         ///</summary>
-        Task Insert<T>( IMongoCollection<T> collection, IEnumerable<T> data );
+        Task InsertMany<T>( IMongoCollection<T> collection, IEnumerable<T> data );
+
+        /// <summary>
+        /// Insert one single document
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        Task InsertOne<T>( IMongoCollection<T> collection, T document );
+
+        /// <summary>
+        /// Replace the information of a specific document
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <param name="document"></param>
+        /// <returns></returns>
+        Task<ReplaceOneResult> Update<T>( IMongoCollection<T> collection, T document, FilterDefinition<T> filter );
 
         #endregion
     }

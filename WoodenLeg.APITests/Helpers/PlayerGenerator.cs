@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using WoodenLeg.Domain.Entities;
@@ -26,7 +27,7 @@ namespace WoodenLeg.APITests.Helpers
             {
                 _playerList.Add( new Player
                 {
-                    Id = i,
+                    Id = Guid.NewGuid().ToString(),
                     Name = $"Player{i}",
                     Team = $"Team{i}"
                 } );
@@ -35,7 +36,7 @@ namespace WoodenLeg.APITests.Helpers
             IMongoCollection<Player> _mongoCollection = _mongo.GetCollection<Player>( nameof( Player ) );
             RemoveAllDocuments( _mongoCollection );
 
-            await _mongo.Insert( _mongoCollection, _playerList );
+            await _mongo.InsertMany( _mongoCollection, _playerList );
         }
 
         /// <summary>
