@@ -49,6 +49,15 @@ namespace WoodenLeg.Infra.Data.Data
         /// <returns></returns>
         Task<ReplaceOneResult> Update<T>( IMongoCollection<T> collection, T document, FilterDefinition<T> filter );
 
+        /// <summary>
+        /// Delete a document
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        Task<DeleteResult> Delete<T>( IMongoCollection<T> collection, string id );
+
         #endregion
     }
 }

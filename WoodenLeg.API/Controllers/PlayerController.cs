@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
+using WoodenLeg.CrossCutting.Helpers;
 using WoodenLeg.Domain.Entities;
 using WoodenLeg.Infra.Data.Data;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace WoodenLeg.API.Controllers
 {
@@ -34,11 +34,19 @@ namespace WoodenLeg.API.Controllers
 
         #region [Methods]
 
+        /// <summary>
+        /// Returns a player collection
+        /// </summary>
+        /// <returns></returns>
+        private IMongoCollection<Player> GetCollection()
+        {
+            return _mongoAccess.GetCollection<Player>( nameof( Player ) );
+        }
+
         [HttpGet]
         public IEnumerable<Player> Get()
         {
-            return _mongoAccess.GetCollection<Player>( nameof( Player ) )
-                               .Find( Builders<Player>.Filter.Empty ).ToList();
+            return GetCollection().Find( Builders<Player>.Filter.Empty ).ToList();
         }
 
         [HttpGet( "{id}" )]
@@ -46,8 +54,7 @@ namespace WoodenLeg.API.Controllers
         {
             var query = Builders<Player>.Filter.Eq( "_id", id );
 
-            return _mongoAccess.GetCollection<Player>( nameof( Player ) )
-                               .Find( query ).FirstOrDefault();
+            return GetCollection().Find( query ).FirstOrDefault();
         }
 
         [HttpPost]
@@ -57,7 +64,7 @@ namespace WoodenLeg.API.Controllers
             {
                 try
                 {
-                    await _mongoAccess.InsertOne( _mongoAccess.GetCollection<Player>( nameof( Player ) ), player );
+                    await _mongoAccess.InsertOne( GetCollection(), player );
                     return "";
                 }
                 catch ( MongoException ex )
@@ -69,6 +76,36 @@ namespace WoodenLeg.API.Controllers
             return "The player is null";
         }
 
+        [HttpPut]
+        public async Task<ActionResult> Update( [FromBody] Player player )
+        {
+            ReplaceOneResult updateResult = null;
+            if ( player != null )
+            {
+                var filterDefinition = Builders<Player>.Filter.Eq( "_id", player.Id );
+                updateResult = await _mongoAccess.Update( GetCollection(), player, filterDefinition );
+            }
+
+            if ( updateResult.IsAcknowledged )
+                return Ok();
+            else
+                return BadRequest();
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete( string id )
+        {
+            DeleteResult deleteResult = null;
+
+            if ( id.HasValue() )
+                deleteResult = await _mongoAccess.Delete( GetCollection(), id );
+
+            if ( deleteResult.IsAcknowledged )
+                return Ok();
+            else
+                return BadRequest();
+        }
+        
         #endregion
 
     }

@@ -145,6 +145,20 @@ namespace WoodenLeg.Infra.Data.Data
             return collection.ReplaceOneAsync( filter, document );
         }
 
+        /// <summary>
+        /// Delete a document
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="collection"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task<DeleteResult> Delete<T>( IMongoCollection<T> collection, string id )
+        {
+            var filter = Builders<T>.Filter.Eq( "_id", id );
+
+            return collection.DeleteOneAsync( filter );
+        }
+
         #endregion
     }
 }

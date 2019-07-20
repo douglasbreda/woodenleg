@@ -101,8 +101,36 @@ namespace WoodenLeg.APITests.ControllersTest
             newPlayer.Name = "Name updated";
             newPlayer.Team = "Team updated";
 
-            //_playerController.Update(newPlayer)
-            Assert.True( false );
+            await _playerController.Update( newPlayer );
+
+            Player playerUpdated = _playerController.GetById( newPlayer.Id );
+
+            Assert.Equal( newPlayer.Name, playerUpdated.Name );
+            Assert.Equal( newPlayer.Team, playerUpdated.Team );
+        }
+
+        [Fact]
+        public async void Delete()
+        {
+            string id = Guid.NewGuid().ToString();
+            string name = "Delete test";
+            string team = "Team delete test";
+
+            Player newPlayer = new Player
+            {
+                Id = id,
+                Name = name,
+                Team = team
+            };
+
+            var _playerController = new PlayerController( new MongoAccess() );
+            await _playerController.Post( newPlayer );
+
+            await _playerController.Delete( newPlayer.Id );
+
+            Player playerDeleted = _playerController.GetById( newPlayer.Id );
+
+            Assert.Null( playerDeleted );
         }
     }
 }

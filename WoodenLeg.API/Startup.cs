@@ -59,9 +59,7 @@ namespace WoodenLeg.API
 
             #endregion
 
-
             app.UseMvc();
-
         }
     }
 }
