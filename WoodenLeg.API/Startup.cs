@@ -4,7 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WoodenLeg.API.Options;
+using WoodenLeg.Application.Implementation;
+using WoodenLeg.Application.Interfaces;
+using WoodenLeg.Domain.Entities;
+using WoodenLeg.Domain.Interfaces.Repositories;
+using WoodenLeg.Domain.Interfaces.Services;
+using WoodenLeg.Domain.Services;
 using WoodenLeg.Infra.Data.Data;
+using WoodenLeg.Infra.Data.Repositories;
 
 namespace WoodenLeg.API
 {
@@ -21,7 +28,17 @@ namespace WoodenLeg.API
         public void ConfigureServices( IServiceCollection services )
         {
             services.AddMvc().SetCompatibilityVersion( CompatibilityVersion.Version_2_2 );
+
+            #region [Dependency Injection]
+
             services.AddSingleton<IMongoAccess, MongoAccess>();
+            services.AddSingleton<IPlayerRepository, PlayerRepository>();
+            services.AddSingleton<IRepositoryBase<Player>, RepositoryBase<Player>>();
+            services.AddSingleton<IPlayerService, PlayerService>();
+            services.AddSingleton<IPlayerAppService, PlayerAppService>();
+            
+
+            #endregion
             services.AddSwaggerGen( x =>
              {
                  x.SwaggerDoc( "v1.0", new Swashbuckle.AspNetCore.Swagger.Info { Title = "WoodenLeg API", Version = "v1.0", } );

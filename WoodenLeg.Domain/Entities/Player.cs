@@ -1,6 +1,8 @@
-﻿namespace WoodenLeg.Domain.Entities
+﻿using WoodenLeg.Domain.Interfaces.Entities;
+
+namespace WoodenLeg.Domain.Entities
 {
-    public class Player
+    public class Player : IEntityBase
     {
         #region [Properties]
 

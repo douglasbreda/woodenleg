@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using WoodenLeg.Application.Interfaces;
 using WoodenLeg.Domain.Interfaces.Entities;
-using WoodenLeg.Domain.Interfaces.Repositories;
 using WoodenLeg.Domain.Interfaces.Services;
 
-namespace WoodenLeg.Domain.Services
+namespace WoodenLeg.Application.Implementation
 {
-    public class ServiceBase<TEntity> : IDisposable, IServiceBase<TEntity> where TEntity : class, IEntityBase
+    public class AppServiceBase<TEntity> : IDisposable, IAppServiceBase<TEntity> where TEntity : class, IEntityBase
     {
         #region [Properties]
 
-        private readonly IRepositoryBase<TEntity> _repositoryBase;
+        private readonly IServiceBase<TEntity> _appServiceBase;
 
         #endregion
 
         #region [Constructor]
 
-        public ServiceBase( IRepositoryBase<TEntity> repositoryBase )
+        public AppServiceBase( IServiceBase<TEntity> appServiceBase )
         {
-            _repositoryBase = repositoryBase; ;
+            _appServiceBase = appServiceBase;
         }
 
         #endregion
@@ -28,36 +28,34 @@ namespace WoodenLeg.Domain.Services
 
         public Task<string> Create( TEntity entity )
         {
-            return _repositoryBase.Create( entity );
+            return _appServiceBase.Create( entity );
         }
 
         public Task<bool> Delete( TEntity entity )
         {
-            return _repositoryBase.Delete( entity );
+            return _appServiceBase.Delete( entity );
         }
 
         public void Dispose()
         {
-            _repositoryBase.Dispose();
+            _appServiceBase.Dispose();
         }
 
         public IEnumerable<TEntity> Get()
         {
-            return _repositoryBase.Get();
+            return _appServiceBase.Get();
         }
 
         public TEntity GetById( string id )
         {
-            return _repositoryBase.GetById( id );
+            return _appServiceBase.GetById( id );
         }
 
         public Task<bool> Update( TEntity entity )
         {
-            return _repositoryBase.Update( entity );
+            return _appServiceBase.Update( entity );
         }
 
-
         #endregion
-
     }
 }

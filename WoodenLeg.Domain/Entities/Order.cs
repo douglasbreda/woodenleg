@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
+using WoodenLeg.Domain.Interfaces.Entities;
 
 namespace WoodenLeg.Domain.Entities
 {
-    public class Order
+    public class Order : IEntityBase
     {
         #region [Propriedades]
 
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public IEnumerable<OrderItem> Items { get; set; }
 

@@ -1,11 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-using WoodenLeg.CrossCutting.Helpers;
+using WoodenLeg.Application.Interfaces;
 using WoodenLeg.Domain.Entities;
-using WoodenLeg.Infra.Data.Data;
 
 namespace WoodenLeg.API.Controllers
 {
@@ -15,7 +12,7 @@ namespace WoodenLeg.API.Controllers
     {
         #region [Attributes]
 
-        private readonly IMongoAccess _mongoAccess;
+        private readonly IPlayerAppService _playerAppService;
 
         #endregion
 
@@ -25,82 +22,50 @@ namespace WoodenLeg.API.Controllers
         /// Default constructor
         /// </summary>
         /// <param name="mongoAccess"></param>
-        public PlayerController( IMongoAccess mongoAccess )
+        public PlayerController( IPlayerAppService playerAppService )
         {
-            _mongoAccess = mongoAccess;
+            _playerAppService = playerAppService;
         }
 
         #endregion
 
         #region [Methods]
 
-        /// <summary>
-        /// Returns a player collection
-        /// </summary>
-        /// <returns></returns>
-        private IMongoCollection<Player> GetCollection()
-        {
-            return _mongoAccess.GetCollection<Player>( nameof( Player ) );
-        }
-
         [HttpGet]
         public IEnumerable<Player> Get()
         {
-            return GetCollection().Find( Builders<Player>.Filter.Empty ).ToList();
+            return _playerAppService.Get();
         }
 
         [HttpGet( "{id}" )]
         public Player GetById( string id )
         {
-            var query = Builders<Player>.Filter.Eq( "_id", id );
-
-            return GetCollection().Find( query ).FirstOrDefault();
+            return _playerAppService.GetById( id );
         }
 
         [HttpPost]
         public async Task<string> Post( [FromBody] Player player )
         {
-            if ( player != null )
-            {
-                try
-                {
-                    await _mongoAccess.InsertOne( GetCollection(), player );
-                    return "";
-                }
-                catch ( MongoException ex )
-                {
-                    return ex.ToString();
-                }
-            }
-
-            return "The player is null";
+            return await _playerAppService.Create( player );
         }
 
         [HttpPut]
         public async Task<ActionResult> Update( [FromBody] Player player )
         {
-            ReplaceOneResult updateResult = null;
-            if ( player != null )
-            {
-                var filterDefinition = Builders<Player>.Filter.Eq( "_id", player.Id );
-                updateResult = await _mongoAccess.Update( GetCollection(), player, filterDefinition );
-            }
+            bool _result = await _playerAppService.Update( player );
 
-            if ( updateResult.IsAcknowledged )
+            if ( _result )
                 return Ok();
             else
                 return BadRequest();
         }
 
         [HttpDelete]
-        public async Task<ActionResult> Delete( string id )
+        public async Task<ActionResult> Delete( Player player )
         {
-            DeleteResult deleteResult = null;
+            bool _result = await _playerAppService.Delete( player );
 
-            if ( id.HasValue() )
-                deleteResult = await _mongoAccess.Delete( GetCollection(), id );
-
-            if ( deleteResult.IsAcknowledged )
+            if ( _result )
                 return Ok();
             else
                 return BadRequest();

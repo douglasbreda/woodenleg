@@ -1,8 +1,10 @@
-﻿namespace WoodenLeg.Domain.Entities
+﻿using WoodenLeg.Domain.Interfaces.Entities;
+
+namespace WoodenLeg.Domain.Entities
 {
-    public class Quality
+    public class Quality : IEntityBase
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public string Description { get; set; }
     }

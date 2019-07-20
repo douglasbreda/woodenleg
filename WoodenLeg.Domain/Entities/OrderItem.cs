@@ -1,10 +1,12 @@
-﻿namespace WoodenLeg.Domain.Entities
+﻿using WoodenLeg.Domain.Interfaces.Entities;
+
+namespace WoodenLeg.Domain.Entities
 {
-    public class OrderItem
+    public class OrderItem : IEntityBase
     {
         #region [Properties]
 
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         public Player Player { get; set; }
 

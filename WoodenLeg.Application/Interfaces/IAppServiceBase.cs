@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using WoodenLeg.Domain.Interfaces.Entities;
 
-namespace WoodenLeg.Domain.Interfaces.Services
+namespace WoodenLeg.Application.Interfaces
 {
-    public interface IServiceBase<TEntity> where TEntity : class
+    public interface IAppServiceBase<TEntity> where TEntity : class, IEntityBase
     {
         #region [Definitions]
 
