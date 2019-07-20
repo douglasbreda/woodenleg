@@ -1,6 +1,6 @@
 # Wooden Leg
 
-Project portfolio using:
+Portfolio project using:
 - DDD (Domain Driven Design);
 - TDD (Test Driven Development);
 - .NET Core 2.2;
