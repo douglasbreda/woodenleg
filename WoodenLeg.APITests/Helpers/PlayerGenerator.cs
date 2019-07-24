@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using MongoDB.Driver;
+using WoodenLeg.CrossCutting.Helpers;
 using WoodenLeg.Domain.Entities;
-using WoodenLeg.Infra.Data.Data;
 
 namespace WoodenLeg.APITests.Helpers
 {
@@ -16,11 +14,8 @@ namespace WoodenLeg.APITests.Helpers
         /// </summary>
         /// <param name="instances"></param>
         /// <returns></returns>
-        public async Task InsertPlayersForTest( int instances )
+        public List<Player> InsertPlayersForTest( int instances )
         {
-            MongoAccess _mongo = new MongoAccess();
-            _mongo.StartConnection();
-
             List<Player> _playerList = new List<Player>();
 
             for ( int i = 0; i < instances; i++ )
@@ -33,20 +28,23 @@ namespace WoodenLeg.APITests.Helpers
                 } );
             }
 
-            IMongoCollection<Player> _mongoCollection = _mongo.GetCollection<Player>( nameof( Player ) );
-            RemoveAllDocuments( _mongoCollection );
-
-            await _mongo.InsertMany( _mongoCollection, _playerList );
+            return _playerList;
         }
 
         /// <summary>
-        /// Cleans the database to allow a new test
+        /// Returns a single player with optional parameters for name and team name
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="collection"></param>
-        private void RemoveAllDocuments<T>( IMongoCollection<T> collection )
+        /// <param name="name"></param>
+        /// <param name="teamName"></param>
+        /// <returns></returns>
+        public Player GetSinglePlayer( string name = "", string teamName = "" )
         {
-            collection.DeleteMany( Builders<T>.Filter.Empty );
+            return new Player
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = name.HasValue() ? name : "Player Test da Silva",
+                Team = teamName.HasValue() ? teamName : "Team Test"
+            };
         }
 
         #endregion
