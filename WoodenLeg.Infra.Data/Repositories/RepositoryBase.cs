@@ -45,6 +45,8 @@ namespace WoodenLeg.Infra.Data.Repositories
                     _errorMessage = ex.ToString();
                 }
             }
+            else
+                _errorMessage = "The entity is null";
 
             return _errorMessage;
         }

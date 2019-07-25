@@ -1,6 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using WoodenLeg.API.Controllers;
 using WoodenLeg.APITests.Helpers;
@@ -12,11 +12,27 @@ namespace WoodenLeg.APITests.ControllersTest
 {
     public class PlayerControllerTest
     {
-        [Fact]
-        public void GetAll()
+        #region [Attributes]
+
+        private readonly PlayerGenerator _playerGenerator;
+
+        #endregion
+
+        #region [Constructor]
+
+        public PlayerControllerTest()
         {
-            PlayerGenerator _generator = new PlayerGenerator();
-            List<Player> players = _generator.InsertPlayersForTest( 10 );
+            _playerGenerator = new PlayerGenerator();
+        }
+
+        #endregion
+
+        #region [Tests]
+
+        [Fact]
+        public void Get_All()
+        {
+            List<Player> players = _playerGenerator.InsertPlayersForTest( 10 );
 
             var playerMock = GetPlayerAppServiceMock();
             playerMock.Setup( controller => controller.Get() ).Returns( players );
@@ -32,9 +48,9 @@ namespace WoodenLeg.APITests.ControllersTest
         }
 
         [Fact]
-        public void GetPlayerById()
+        public void Get_Player_By_Id()
         {
-            Player createdPlayer = new PlayerGenerator().GetSinglePlayer();
+            Player createdPlayer = _playerGenerator.GetSinglePlayer();
             string playerId = createdPlayer.Id;
 
             var playerMock = GetPlayerAppServiceMock();
@@ -50,31 +66,24 @@ namespace WoodenLeg.APITests.ControllersTest
         }
 
         [Fact]
-        public async void InsertOne()
+        public async void Insert_One()
         {
-            //string id = Guid.NewGuid().ToString();
-            //string name = "Insert test";
-            //string team = "Team test";
+            string name = "Insert test";
+            string team = "Team test";
 
-            //Player newPlayer = new Player
-            //{
-            //    Id = id,
-            //    Name = name,
-            //    Team = team
-            //};
+            Player newPlayer = _playerGenerator.GetSinglePlayer( name, team );
+            var mockPlayer = GetPlayerAppServiceMock();
 
-            //var _playerController = NewController();
-            //await _playerController.Post( newPlayer );
+            mockPlayer.Setup( x => x.Create( newPlayer ) ).ReturnsAsync( string.Empty );
+            var _playerController = new PlayerController( mockPlayer.Object );
+            string result = await _playerController.Post( newPlayer );
 
-            //Player inserted = _playerController.GetById( id );
-
-            //Assert.Equal( inserted.Id, id );
-            //Assert.Equal( inserted.Name, name );
-            //Assert.Equal( inserted.Team, team );
+            Assert.Equal( string.Empty, result );
         }
+        
 
         [Fact]
-        public async void InsertOneNull()
+        public async void Insert_One_Null()
         {
             Player newPlayer = null;
             var playerMock = GetPlayerAppServiceMock();
@@ -91,54 +100,35 @@ namespace WoodenLeg.APITests.ControllersTest
         [Fact]
         public async void Update()
         {
-            string id = Guid.NewGuid().ToString();
-            string name = "Insert test";
-            string team = "Team test";
+            Player player = _playerGenerator.GetSinglePlayer();
+            var mockPlayer = new Mock<IPlayerAppService>();
 
-            Player newPlayer = new Player
-            {
-                Id = id,
-                Name = name,
-                Team = team
-            };
+            mockPlayer.Setup( x => x.Update( It.IsAny<Player>() ) ).ReturnsAsync( true );
 
-            var _playerController = new PlayerController( null /*new MongoAccess()*/ );
-            await _playerController.Post( newPlayer );
+            var _playerController = new PlayerController( mockPlayer.Object );
+            ActionResult result = await _playerController.Update( player );
 
-            newPlayer.Name = "Name updated";
-            newPlayer.Team = "Team updated";
-
-            await _playerController.Update( newPlayer );
-
-            Player playerUpdated = _playerController.GetById( newPlayer.Id );
-
-            Assert.Equal( newPlayer.Name, playerUpdated.Name );
-            Assert.Equal( newPlayer.Team, playerUpdated.Team );
+            Assert.Equal( typeof(OkResult), result.GetType() );
         }
 
         [Fact]
         public async void Delete()
         {
-            string id = Guid.NewGuid().ToString();
-            string name = "Delete test";
-            string team = "Team delete test";
+            Player player = _playerGenerator.GetSinglePlayer();
+            var mockPlayer = new Mock<IPlayerAppService>();
 
-            Player newPlayer = new Player
-            {
-                Id = id,
-                Name = name,
-                Team = team
-            };
+            mockPlayer.Setup( x => x.Delete( player ) ).ReturnsAsync( true );
 
-            var _playerController = new PlayerController( null/*new MongoAccess()*/ );
-            await _playerController.Post( newPlayer );
+            var _playerController = new PlayerController( mockPlayer.Object );
 
-            await _playerController.Delete( newPlayer );
+            ActionResult action = await _playerController.Delete( player );
 
-            Player playerDeleted = _playerController.GetById( newPlayer.Id );
-
-            Assert.Null( playerDeleted );
+            Assert.Equal( typeof( OkResult ), action.GetType() );
         }
+
+        #endregion
+
+        #region [Auxiliar Methods]
 
         /// <summary>
         /// To centralize the creation of player mock because this will be used in many methods
@@ -148,5 +138,7 @@ namespace WoodenLeg.APITests.ControllersTest
         {
             return new Mock<IPlayerAppService>();
         }
+
+        #endregion
     }
 }
