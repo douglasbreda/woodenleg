@@ -12,8 +12,8 @@ namespace WoodenLeg.Infra.Data.Repositories
     {
         #region [Attributes and Properties]
 
-        private readonly IMongoAccess _mongoAccess = null;
-
+        //private readonly IMongoAccess _mongoAccess = null;
+        public IMongoAccess MongoAccess { private get; set; }
         #endregion
 
         #region [Constructor]
@@ -23,7 +23,7 @@ namespace WoodenLeg.Infra.Data.Repositories
         /// </summary>
         public RepositoryBase()
         {
-            _mongoAccess = new MongoAccess();
+            //_mongoAccess = new MongoAccess();
         }
 
         #endregion
@@ -38,7 +38,7 @@ namespace WoodenLeg.Infra.Data.Repositories
                 //TODO: Add validations
                 try
                 {
-                    await _mongoAccess.InsertOne( GetCollection(), entity );
+                    await MongoAccess.InsertOne( GetCollection(), entity );
                 }
                 catch ( MongoException ex )
                 {
@@ -56,14 +56,14 @@ namespace WoodenLeg.Infra.Data.Repositories
             DeleteResult deleteResult = null;
 
             if ( entity != null )
-                deleteResult = await _mongoAccess.Delete( GetCollection(), entity.Id );
+                deleteResult = await MongoAccess.Delete( GetCollection(), entity.Id );
 
             return deleteResult.IsAcknowledged;
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+
         }
 
         public async Task<bool> Update( TEntity entity )
@@ -72,10 +72,10 @@ namespace WoodenLeg.Infra.Data.Repositories
             if ( entity != null )
             {
                 var filterDefinition = Builders<TEntity>.Filter.Eq( "_id", entity.Id );
-                updateResult = await _mongoAccess.Update( GetCollection(), entity, filterDefinition );
+                updateResult = await MongoAccess.Update( GetCollection(), entity, filterDefinition );
             }
 
-            return updateResult.IsAcknowledged;
+            return updateResult == null ? false : updateResult.IsAcknowledged;
         }
 
         public IEnumerable<TEntity> Get()
@@ -96,7 +96,7 @@ namespace WoodenLeg.Infra.Data.Repositories
         /// <returns></returns>
         private IMongoCollection<TEntity> GetCollection()
         {
-            return _mongoAccess.GetCollection<TEntity>( typeof( TEntity ).Name );
+            return MongoAccess.GetCollection<TEntity>( typeof( TEntity ).Name );
         }
 
         #endregion
