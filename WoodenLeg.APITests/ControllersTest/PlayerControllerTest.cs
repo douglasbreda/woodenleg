@@ -101,7 +101,7 @@ namespace WoodenLeg.APITests.ControllersTest
         public async void Update()
         {
             Player player = _playerGenerator.GetSinglePlayer();
-            var mockPlayer = new Mock<IPlayerAppService>();
+            var mockPlayer = GetPlayerAppServiceMock();
 
             mockPlayer.Setup( x => x.Update( It.IsAny<Player>() ) ).ReturnsAsync( true );
 
@@ -115,7 +115,7 @@ namespace WoodenLeg.APITests.ControllersTest
         public async void Delete()
         {
             Player player = _playerGenerator.GetSinglePlayer();
-            var mockPlayer = new Mock<IPlayerAppService>();
+            var mockPlayer = GetPlayerAppServiceMock();
 
             mockPlayer.Setup( x => x.Delete( player ) ).ReturnsAsync( true );
 
