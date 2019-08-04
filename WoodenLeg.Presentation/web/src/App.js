@@ -1,16 +1,13 @@
 import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
+import "./components/navbar"
+import NavBar from "./components/navbar";
 
 function App() {
   return (
-    <div className="App">
-      <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="#">
-          Wooden Leg
-        </a>
-       
-      </nav>
+    <div className="App">  
+    <NavBar />    
     </div>
   );
 }
