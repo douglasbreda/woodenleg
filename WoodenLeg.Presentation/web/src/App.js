@@ -2,12 +2,12 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "./components/navbar"
-import NavBar from "./components/navbar";
+import Routes from './routes';
 
 function App() {
   return (
     <div className="App">  
-    <NavBar />    
+      <Routes />
     </div>
   );
 }

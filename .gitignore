@@ -9,3 +9,4 @@ bin/
 API/.vscode/
 APITests/.vscode/
 
+/WoodenLeg.API/Configs.txt

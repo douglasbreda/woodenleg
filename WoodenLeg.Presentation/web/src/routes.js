@@ -1,15 +1,15 @@
-import React from 'react';
-import App from './App';
+import React from "react";
+import App from "./App";
+import Home from './pages/home';
 
-import {BrowserRouter, Switch, Route } from 'react-router-dom';
-
+import { BrowserRouter, Route } from "react-router-dom";
+import NavBar from "./components/navbar";
 
 const Routes = () => (
-    <BrowserRouter>
-        <Switch>
-            <Route exact path="/" component={App}></Route>
-        </Switch>
-    </BrowserRouter>
-)
+  <BrowserRouter>
+    <Route path="/" exact component={Home} />
+    <Route path="/main" component={NavBar} />
+  </BrowserRouter>
+);
 
 export default Routes;

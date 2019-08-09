@@ -23,7 +23,8 @@ namespace WoodenLeg.Infra.Data.Repositories
         /// </summary>
         public RepositoryBase()
         {
-            //_mongoAccess = new MongoAccess();
+            if ( MongoAccess == null )
+                MongoAccess = new MongoAccess();
         }
 
         #endregion

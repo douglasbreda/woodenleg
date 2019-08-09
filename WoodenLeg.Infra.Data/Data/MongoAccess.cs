@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using MongoDB.Driver;
 using WoodenLeg.CrossCutting.Helpers;
 using System.Linq;
+using System;
+using System.IO;
 
 namespace WoodenLeg.Infra.Data.Data
 {
@@ -11,7 +13,7 @@ namespace WoodenLeg.Infra.Data.Data
 
         #region [Properties]
 
-        private string _connectionString = "mongodb://localhost";
+        private string _connectionString = "";
 
         private IMongoDatabase _dataBase = null;
 
@@ -28,10 +30,11 @@ namespace WoodenLeg.Infra.Data.Data
         /// </summary>
         public MongoAccess()
         {
+            GetConnectionString();
             StartConnection();
             GetDataBase( _baseName );
         }
-        
+
         #endregion
 
         #region [Interface definitions]
@@ -157,6 +160,15 @@ namespace WoodenLeg.Infra.Data.Data
             var filter = Builders<T>.Filter.Eq( "_id", id );
 
             return collection.DeleteOneAsync( filter );
+        }
+
+        /// <summary>
+        /// Read a config file for the connection string
+        /// </summary>
+        private void GetConnectionString()
+        {
+            //Remove at the end and put on appsetings.config
+            _connectionString = File.ReadAllText( "Configs.txt" );
         }
 
         #endregion
