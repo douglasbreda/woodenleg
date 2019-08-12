@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { FiMessageCircle } from "react-icons/fi";
 import { FiUser } from "react-icons/fi";
 import "./styles.css";
-
+import SearchBar from "../searchbar";
 
 export default class NavBar extends Component {
   render() {
     return (
+      <div>
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">
           Wooden Leg
@@ -36,22 +37,30 @@ export default class NavBar extends Component {
             </li>
           </ul>
           <ul class="navbar-nav ml-auto nav-flex-icons">
-      <li class="nav-item">
-        <a class="nav-link waves-effect waves-light" href="#">
-          <FiMessageCircle/> Chat
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link waves-effect waves-light" href="#">
-          <FiUser/>My Account
-        </a>
-      </li>
-      <li class="nav-item">
-        <button type="button" class="btn btn-info" id="adButton">Announce</button>
-      </li>
-    </ul>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" href="#">
+                <FiMessageCircle /> Chat
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link waves-effect waves-light" href="#">
+                <FiUser />
+                My Account
+              </a>
+            </li>
+            <li class="nav-item">
+              <button type="button" class="btn btn-info" id="adButton">
+                Announce
+              </button>
+            </li>
+          </ul>
         </div>
       </nav>
+      
+        <SearchBar></SearchBar>
+      
+      </div>
+      
     );
   }
 }
