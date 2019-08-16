@@ -1,15 +1,13 @@
 .main-container{
     width: 600px;
-    margin: 0 auto;
-    padding: 20px 0;
-    text-align: left;
+    margin: 100px; 
 }
 
 .main-container ul{
     list-style: none;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 5px;
+    grid-template-columns: repeat(6, .5fr);
+    grid-gap: 40px;
 }
 
 .main-container img{
@@ -23,19 +21,11 @@
 }
 
 .main-container ul li footer{
-    flex: 1;
     background: #FFF;
     border: 1px solid #eee;
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
     text-align: left;
     border-radius: 0 0 5px 5px;
-}
-
-.main-container ul li footer p{
-    font-size: 14px;
-    position: relative;
-    padding-left: 20px;
-    display: inline;
 }
 
 .main-container ul li .buttons{
@@ -62,4 +52,9 @@
 .team-image{
     width: 16px;
     height: 16px;
+}
+
+.player-info text{
+    font-size: 14px;
+    padding: 2px 0px 0px 3px;
 }
