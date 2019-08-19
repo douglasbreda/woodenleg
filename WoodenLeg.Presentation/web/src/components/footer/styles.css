@@ -1,12 +1,10 @@
-.footer-distributed{
+ .footer-distributed{
 	background-color: #292c2f;
 	box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 	box-sizing: border-box;
 	width: 100%;
 	font: bold 16px sans-serif;
 	padding: 55px 50px;
-	position: absolute;
-	bottom: 0;
 }
 
 .footer-distributed .footer-icons a{
@@ -26,11 +24,10 @@
 	margin-bottom: 5px;
 }
 
-/* If you don't want the footer to be responsive, remove these media queries */
 
-@media (max-width: 880px) {
+/* @media (max-width: 880px) {
 
 	.footer-distributed{
 		font: bold 14px sans-serif;
 	}
-}
+}  */

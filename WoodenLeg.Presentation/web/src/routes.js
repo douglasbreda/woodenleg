@@ -1,5 +1,4 @@
 import React from "react";
-import App from "./App";
 import Announce from './pages/announce/Announce';
 import Home from './pages/home/Home';
 
